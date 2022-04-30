@@ -25,8 +25,25 @@ class DirectorsController < ApplicationController
 
   def director_details
 
-    @director_id = params.fetch(:directorid)
-    #@all_directors = Directors.all.where.not({:name => nil})
+    @director_id = params.fetch("directorid")
+    @director_name = Director.where({:id => @director_id}).first.name
+    @director_dob = Director.where({:id => @director_id}).first.dob
+    @director_bio = Director.where({:id => @director_id}).first.bio
+    @director_created = Director.where({:id => @director_id}).first.created_at
+    @director_updated = Director.where({:id => @director_id}).first.updated_at
+    
+
+    @filmography = Movie.where({:director_id=> @director_id}).all
+    
+
+  #   <dl> Dob </dl>
+  # <dd> <%= @director_dob %> </dd>
+  
+  # <dl> Bio </dl>
+  # <dd> <%= @director_bio %> </dd>
+
+  # <dl> Image</dl>
+  # <dd> <%= @director_image %> </dd>
 
     render({:template => "director_templates/director_details.html.erb"})
   end

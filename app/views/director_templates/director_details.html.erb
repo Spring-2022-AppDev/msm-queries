@@ -2,4 +2,48 @@
 
 <a href="/directors"> Go back</a> 
 
-<%= @director_id %>
+<hr>
+
+<dl> Name</dl>
+  <dd> <%= @director_name %> </dd>
+
+  <dl> Dob </dl>
+  <dd> <%= @director_dob %> </dd>
+  
+  <dl> Bio </dl>
+  <dd> <%= @director_bio %> </dd>
+
+  <dl> Image</dl>
+  <dd>  <img src="https://robohash.org/<%=@director_dob%>"> </dd>
+
+  <dl> Created at</dl>
+  <dd> <%= time_ago_in_words(@director_created) %> </dd>
+
+  <dl> Updated at</dl>
+  <dd> <%= time_ago_in_words(@director_updated) %> </dd>
+
+<hr> 
+
+<h1> Filmogrpahy </h1>
+
+<table border="1">
+
+<% @filmography.each do |movie|  %>
+
+<tr> 
+  <td> <%= movie.id %> </td>
+
+  <td> <img src="https://robohash.org/<%=movie.title%>"> </td>
+
+  <td> <%= movie.title %> </td>
+
+
+  <td> <%= movie.year %> </td>
+
+  <td> <%= Director.where({:id => movie.director_id}).at(0).name %> </td>
+
+  <td> <a href="/movies/<%=movie.id%>"> Show details </a>
+
+<% end %>
+
+</table>
